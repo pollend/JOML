@@ -108,6 +108,78 @@ public class Rectangled implements Externalizable {
     }
 
     /**
+     * Set this {@link Rectangled} to be a clone of <code>source</code>.
+     *
+     * @param source
+     *            the {@link Rectangled} to copy from
+     * @return this
+     */
+    public Rectangled set(Rectangled source){
+        this.minX = source.minX;
+        this.minY = source.minY;
+        this.maxX = source.maxX;
+        this.maxY = source.maxY;
+        return this;
+    }
+
+    /**
+     * Set the minimum corner coordinates.
+     *
+     * @param minX
+     *          the x coordinate of the minimum corner
+     * @param minY
+     *          the y coordinate of the minimum corner
+     * @return this
+     */
+    public Rectangled setMin(double minX, double minY) {
+        this.minX = minX;
+        this.minY = minY;
+        return this;
+    }
+
+    /**
+     * Set the minimum corner coordinates.
+     *
+     * @param min
+     *          the minimum coordinates
+     * @return this
+     */
+    public Rectangled setMin(Vector2dc min) {
+        this.minX = min.x();
+        this.minY = min.y();
+        return this;
+    }
+
+
+    /**
+     * Set the maximum corner coordinates.
+     *
+     * @param maxX
+     *              the x coordinate of the maximum corner
+     * @param maxY
+     *              the y coordinate of the maximum corner
+     * @return this
+     */
+    public Rectangled setMax(double maxX, double maxY) {
+        this.maxX = maxX;
+        this.maxY = maxY;
+        return this;
+    }
+
+    /**
+     * Set the maximum corner coordinates.
+     *
+     * @param max
+     *          the maximum coordinates
+     * @return this
+     */
+    public Rectangled setMax(Vector2dc max) {
+        this.maxX = max.x();
+        this.maxY = max.y();
+        return this;
+    }
+
+    /**
      * Return the length of the rectangle in the X dimension.
      *
      * @return length in the X dimension
@@ -275,6 +347,90 @@ public class Rectangled implements Externalizable {
     public boolean containsRectangle(Rectanglei rectangle) {
         return rectangle.minX >= minX && rectangle.maxX <= maxX &&
                rectangle.minY >= minY && rectangle.maxY <= maxY;
+    }
+
+    /**
+     * Set <code>this</code> to the union of <code>this</code> and the given point <code>p</code>.
+     *
+     * @param x
+     *          the x coordinate of the point
+     * @param y
+     *          the y coordinate of the point
+     * @return this
+     */
+    public Rectangled union(double x, double y) {
+        return union(x, y, this);
+    }
+
+    /**
+     * Set <code>this</code> to the union of <code>this</code> and the given point <code>p</code>.
+     *
+     * @param p
+     *          the point
+     * @return this
+     */
+    public Rectangled union(Vector2dc p) {
+        return union(p.x(), p.y(), this);
+    }
+
+    /**
+     * Compute the union of <code>this</code> and the given point <code>(x, y, z)</code> and store the result in <code>dest</code>.
+     *
+     * @param x
+     *          the x coordinate of the point
+     * @param y
+     *          the y coordinate of the point
+     * @param dest
+     *          will hold the result
+     * @return dest
+     */
+    public Rectangled union(double x, double y, Rectangled dest) {
+        dest.minX = this.minX < x ? this.minX : x;
+        dest.minY = this.minY < y ? this.minY : y;
+        dest.maxX = this.maxX > x ? this.maxX : x;
+        dest.maxY = this.maxY > y ? this.maxY : y;
+        return dest;
+    }
+
+    /**
+     * Compute the union of <code>this</code> and the given point <code>p</code> and store the result in <code>dest</code>.
+     *
+     * @param p
+     *          the point
+     * @param dest
+     *          will hold the result
+     * @return dest
+     */
+    public Rectangled union(Vector2dc p, Rectangled dest) {
+        return union(p.x(), p.y(), dest);
+    }
+
+    /**
+     * Set <code>this</code> to the union of <code>this</code> and <code>other</code>.
+     *
+     * @param other
+     *          the other {@link Rectanglef}
+     * @return this
+     */
+    public Rectangled union(Rectangled other) {
+        return this.union(other, this);
+    }
+
+    /**
+     * Compute the union of <code>this</code> and <code>other</code> and store the result in <code>dest</code>.
+     *
+     * @param other
+     *          the other {@link Rectangled}
+     * @param dest
+     *          will hold the result
+     * @return dest
+     */
+    public Rectangled union(Rectangled other, Rectangled dest) {
+        dest.minX = this.minX < other.minX ? this.minX : other.minX;
+        dest.minY = this.minY < other.minY ? this.minY : other.minY;
+        dest.maxX = this.maxX > other.maxX ? this.maxX : other.maxX;
+        dest.maxY = this.maxY > other.maxY ? this.maxY : other.maxY;
+        return dest;
     }
 
     /**
