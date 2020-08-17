@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-public class AABBi implements Externalizable {
+public class AABBi implements Externalizable, AABBic {
 
     /**
      * The x coordinate of the minimum corner.
@@ -119,6 +119,31 @@ public class AABBi implements Externalizable {
         this.maxY = maxY;
         this.maxZ = maxZ;
     }
+
+    public int minX() {
+        return minX;
+    }
+
+    public int minY() {
+        return minY;
+    }
+
+    public int minZ() {
+        return minZ;
+    }
+
+    public int maxX() {
+        return maxX;
+    }
+
+    public int maxY() {
+        return maxY;
+    }
+
+    public int maxZ() {
+        return maxZ;
+    }
+
 
     /**
      * Set the minimum corner coordinates.

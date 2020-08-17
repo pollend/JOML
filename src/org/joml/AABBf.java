@@ -32,10 +32,10 @@ import java.text.NumberFormat;
 
 /**
  * Represents an axis-aligned box defined via the minimum and maximum corner coordinates.
- * 
+ *
  * @author Kai Burjack
  */
-public class AABBf implements Externalizable {
+public class AABBf implements Externalizable, AABBfc {
 
     /**
      * The x coordinate of the minimum corner.
@@ -71,7 +71,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Create a new {@link AABBf} as a copy of the given <code>source</code>.
-     * 
+     *
      * @param source
      *          the {@link AABBf} to copy from
      */
@@ -86,7 +86,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Create a new {@link AABBf} with the given minimum and maximum corner coordinates.
-     * 
+     *
      * @param min
      *          the minimum coordinates
      * @param max
@@ -103,7 +103,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Create a new {@link AABBf} with the given minimum and maximum corner coordinates.
-     * 
+     *
      * @param minX
      *          the x coordinate of the minimum corner
      * @param minY
@@ -156,6 +156,30 @@ public class AABBf implements Externalizable {
         return this;
     }
 
+    public float minX() {
+        return minX;
+    }
+
+    public float minY() {
+        return minY;
+    }
+
+    public float minZ() {
+        return minZ;
+    }
+
+    public float maxX() {
+        return maxX;
+    }
+
+    public float maxY() {
+        return maxY;
+    }
+
+    public float maxZ() {
+        return maxZ;
+    }
+
     /**
      * Check whether <code>this</code> rectangle represents a valid AABB.
      *
@@ -168,7 +192,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Set the minimum corner coordinates.
-     * 
+     *
      * @param minX
      *          the x coordinate of the minimum corner
      * @param minY
@@ -186,7 +210,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Set the maximum corner coordinates.
-     * 
+     *
      * @param maxX
      *          the x coordinate of the maximum corner
      * @param maxY
@@ -204,7 +228,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Set the minimum corner coordinates.
-     * 
+     *
      * @param min
      *          the minimum coordinates
      * @return this
@@ -215,7 +239,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Set the maximum corner coordinates.
-     * 
+     *
      * @param max
      *          the maximum coordinates
      * @return this
@@ -226,7 +250,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Get the maximum corner coordinate of the given component.
-     * 
+     *
      * @param component
      *          the component, within <code>[0..2]</code>
      * @return the maximum coordinate
@@ -247,7 +271,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Get the minimum corner coordinate of the given component.
-     * 
+     *
      * @param component
      *          the component, within <code>[0..2]</code>
      * @return the maximum coordinate
@@ -308,7 +332,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Set <code>this</code> to the union of <code>this</code> and the given point <code>(x, y, z)</code>.
-     * 
+     *
      * @param x
      *          the x coordinate of the point
      * @param y
@@ -323,7 +347,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Set <code>this</code> to the union of <code>this</code> and the given point <code>p</code>.
-     * 
+     *
      * @param p
      *          the point
      * @return this
@@ -334,7 +358,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Compute the union of <code>this</code> and the given point <code>(x, y, z)</code> and store the result in <code>dest</code>.
-     * 
+     *
      * @param x
      *          the x coordinate of the point
      * @param y
@@ -357,7 +381,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Compute the union of <code>this</code> and the given point <code>p</code> and store the result in <code>dest</code>.
-     * 
+     *
      * @param p
      *          the point
      * @param dest
@@ -370,7 +394,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Set <code>this</code> to the union of <code>this</code> and <code>other</code>.
-     * 
+     *
      * @param other
      *          the other {@link AABBf}
      * @return this
@@ -381,7 +405,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Compute the union of <code>this</code> and <code>other</code> and store the result in <code>dest</code>.
-     * 
+     *
      * @param other
      *          the other {@link AABBf}
      * @param dest
@@ -401,7 +425,7 @@ public class AABBf implements Externalizable {
     /**
      * Ensure that the minimum coordinates are strictly less than or equal to the maximum coordinates by swapping
      * them if necessary.
-     * 
+     *
      * @return this
      */
     public AABBf correctBounds() {
@@ -426,7 +450,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Translate <code>this</code> by the given vector <code>xyz</code>.
-     * 
+     *
      * @param xyz
      *          the vector to translate by
      * @return this
@@ -437,7 +461,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Translate <code>this</code> by the given vector <code>xyz</code> and store the result in <code>dest</code>.
-     * 
+     *
      * @param xyz
      *          the vector to translate by
      * @param dest
@@ -450,7 +474,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Translate <code>this</code> by the vector <code>(x, y, z)</code>.
-     * 
+     *
      * @param x
      *          the x coordinate to translate by
      * @param y
@@ -465,7 +489,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Translate <code>this</code> by the vector <code>(x, y, z)</code> and store the result in <code>dest</code>.
-     * 
+     *
      * @param x
      *          the x coordinate to translate by
      * @param y
@@ -568,7 +592,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Test whether the point <code>(x, y, z)</code> lies inside this AABB.
-     * 
+     *
      * @param x
      *          the x coordinate of the point
      * @param y
@@ -583,7 +607,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Test whether the given point lies inside this AABB.
-     * 
+     *
      * @param point
      *          the coordinates of the point
      * @return <code>true</code> iff the given point lies inside this AABB; <code>false</code> otherwise
@@ -596,7 +620,7 @@ public class AABBf implements Externalizable {
      * Test whether the plane given via its plane equation <code>a*x + b*y + c*z + d = 0</code> intersects this AABB.
      * <p>
      * Reference: <a href="http://www.lighthouse3d.com/tutorials/view-frustum-culling/geometric-approach-testing-boxes-ii/">http://www.lighthouse3d.com</a> ("Geometric Approach - Testing Boxes II")
-     * 
+     *
      * @param a
      *          the x factor in the plane equation
      * @param b
@@ -615,7 +639,7 @@ public class AABBf implements Externalizable {
      * Test whether the given plane intersects this AABB.
      * <p>
      * Reference: <a href="http://www.lighthouse3d.com/tutorials/view-frustum-culling/geometric-approach-testing-boxes-ii/">http://www.lighthouse3d.com</a> ("Geometric Approach - Testing Boxes II")
-     * 
+     *
      * @param plane
      *          the plane
      * @return <code>true</code> iff the plane intersects this AABB; <code>false</code> otherwise
@@ -626,7 +650,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Test whether <code>this</code> and <code>other</code> intersect.
-     * 
+     *
      * @param other
      *          the other AABB
      * @return <code>true</code> iff both AABBs intersect; <code>false</code> otherwise
@@ -641,7 +665,7 @@ public class AABBf implements Externalizable {
      * <code>(x - centerX)^2 + (y - centerY)^2 + (z - centerZ)^2 - radiusSquared = 0</code>.
      * <p>
      * Reference: <a href="http://stackoverflow.com/questions/4578967/cube-sphere-intersection-test#answer-4579069">http://stackoverflow.com</a>
-     * 
+     *
      * @param centerX
      *          the x coordinate of the center of the sphere
      * @param centerY
@@ -660,7 +684,7 @@ public class AABBf implements Externalizable {
      * Test whether this AABB intersects the given sphere.
      * <p>
      * Reference: <a href="http://stackoverflow.com/questions/4578967/cube-sphere-intersection-test#answer-4579069">http://stackoverflow.com</a>
-     * 
+     *
      * @param sphere
      *          the sphere
      * @return <code>true</code> iff this AABB and the sphere intersect; <code>false</code> otherwise
@@ -676,7 +700,7 @@ public class AABBf implements Externalizable {
      * This method returns <code>true</code> for a ray whose origin lies inside this AABB.
      * <p>
      * Reference: <a href="https://dl.acm.org/citation.cfm?id=1198748">An Efficient and Robust Ray–Box Intersection</a>
-     * 
+     *
      * @param originX
      *          the x coordinate of the ray's origin
      * @param originY
@@ -701,7 +725,7 @@ public class AABBf implements Externalizable {
      * This method returns <code>true</code> for a ray whose origin lies inside this AABB.
      * <p>
      * Reference: <a href="https://dl.acm.org/citation.cfm?id=1198748">An Efficient and Robust Ray–Box Intersection</a>
-     * 
+     *
      * @param ray
      *          the ray
      * @return <code>true</code> if this AABB and the ray intersect; <code>false</code> otherwise
@@ -718,7 +742,7 @@ public class AABBf implements Externalizable {
      * This method returns <code>true</code> for a ray whose origin lies inside this AABB.
      * <p>
      * Reference: <a href="https://dl.acm.org/citation.cfm?id=1198748">An Efficient and Robust Ray–Box Intersection</a>
-     * 
+     *
      * @param originX
      *              the x coordinate of the ray's origin
      * @param originY
@@ -748,7 +772,7 @@ public class AABBf implements Externalizable {
      * This method returns <code>true</code> for a ray whose origin lies inside this AABB.
      * <p>
      * Reference: <a href="https://dl.acm.org/citation.cfm?id=1198748">An Efficient and Robust Ray–Box Intersection</a>
-     * 
+     *
      * @param ray
      *              the ray
      * @param result
@@ -769,7 +793,7 @@ public class AABBf implements Externalizable {
      * This method returns <code>true</code> for a line segment whose either end point lies inside this AABB.
      * <p>
      * Reference: <a href="https://dl.acm.org/citation.cfm?id=1198748">An Efficient and Robust Ray–Box Intersection</a>
-     * 
+     *
      * @param p0X
      *              the x coordinate of the line segment's first end point
      * @param p0Y
@@ -802,7 +826,7 @@ public class AABBf implements Externalizable {
      * This method returns <code>true</code> for a line segment whose either end point lies inside this AABB.
      * <p>
      * Reference: <a href="https://dl.acm.org/citation.cfm?id=1198748">An Efficient and Robust Ray–Box Intersection</a>
-     * 
+     *
      * @param lineSegment
      *              the line segment
      * @param result
@@ -822,7 +846,7 @@ public class AABBf implements Externalizable {
      * Apply the given {@link Matrix4fc#isAffine() affine} transformation to this {@link AABBf}.
      * <p>
      * The matrix in <code>m</code> <i>must</i> be {@link Matrix4fc#isAffine() affine}.
-     * 
+     *
      * @param m
      *          the affine transformation matrix
      * @return this
@@ -836,7 +860,7 @@ public class AABBf implements Externalizable {
      * {@link AABBf} and store the resulting AABB into <code>dest</code>.
      * <p>
      * The matrix in <code>m</code> <i>must</i> be {@link Matrix4fc#isAffine() affine}.
-     * 
+     *
      * @param m
      *          the affine transformation matrix
      * @param dest
@@ -907,7 +931,7 @@ public class AABBf implements Externalizable {
      * Return a string representation of this AABB.
      * <p>
      * This method creates a new {@link DecimalFormat} on every invocation with the format string "<code>0.000E0;-</code>".
-     * 
+     *
      * @return the string representation
      */
     public String toString() {
@@ -916,7 +940,7 @@ public class AABBf implements Externalizable {
 
     /**
      * Return a string representation of this AABB by formatting the vector components with the given {@link NumberFormat}.
-     * 
+     *
      * @param formatter
      *          the {@link NumberFormat} used to format the vector components with
      * @return the string representation
